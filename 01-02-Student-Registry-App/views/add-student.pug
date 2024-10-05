@@ -1,13 +1,13 @@
 include header.pug
 
-h1 Register New Student
+h1 Register A New Student
 form(method='POST' action='/add-student')
   div
     label(for='name') Name: 
     input#name(type='text', name='name')
   div
-    label(for='email') Email: 
+    label(for='email') Email Adress: 
     input#email(type='email',  name='email')
-  button(type='submit') Add
+  button(type='submit') Submit
 
 include footer
