@@ -1,37 +1,45 @@
-
 name: Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     paths:
-      - '01-02-Student-Registry-App/**'
+      - "01-02-Student-Registry-App/**"
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
     paths:
-      - '01-02-Student-Registry-App/**'
+      - "01-02-Student-Registry-App/**"
 
 jobs:
   build_test:
-
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout the code
-      uses: actions/checkout@v4
+      - name: Checkout the code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Install dependencies for project-one
-      run: npm ci
-      working-directory: ./01-02-Student-Registry-App # Specify the directory for the project
+      - name: Install dependencies for project-one
+        run: npm ci
+        working-directory: ./01-02-Student-Registry-App # Specify the directory for the project
 
-    - name: Execute tests for project-one
-      run: npm test
-      working-directory: ./01-02-Student-Registry-App  # Specify the directory for the project
+      - name: Execute tests for project-one
+        run: npm test
+        working-directory: ./01-02-Student-Registry-App # Specify the directory for the project
 
-    - name: Build project-one (if build script exists)
-      run: npm run --if-present build
-      working-directory: ./01-02-Student-Registry-App  # Specify the directory for the project
+      - name: Build project-one (if build script exists)
+        run: npm run --if-present build
+        working-directory: ./01-02-Student-Registry-App # Specify the directory for the project
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_test
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
