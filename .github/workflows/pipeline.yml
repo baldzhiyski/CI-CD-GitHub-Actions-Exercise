@@ -4,8 +4,12 @@ name: Pipeline
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - '01-02-Student-Registry-App/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - '01-02-Student-Registry-App/**'
 
 jobs:
   build_test:
