@@ -32,6 +32,9 @@ jobs:
         run: npm run build --if-present
         working-directory: ./03-Library
 
+      - name: Update config
+        run: echo "export const settings = {host :\"https://localhost:3030\"}"  > 03-Library/src/config.js
+
       - name: Start BackEnd
         run: npm run start:be &
         working-directory: ./03-Library
