@@ -28,6 +28,14 @@ jobs:
         run: npm run build --if-present
         working-directory: ./03-Library
 
+      - name: Start BackEnd
+        run: npm run start:be &
+        working-directory: ./03-Library
+
+      - name: Start FrontEnd
+        run: npm run start:fe &
+        working-directory: ./03-Library
+
       - name: Execute tests for project-one
         run: npm test
         working-directory: ./03-Library
