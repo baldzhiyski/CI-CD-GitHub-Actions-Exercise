@@ -33,7 +33,7 @@ jobs:
         working-directory: ./03-Library
 
       - name: Update config
-        run: echo "export const settings = {host :\"https://localhost:3030\"}"  > 03-Library/src/config.js
+        run: echo "export const settings = {host :\"http://localhost:3030\"}"  > 03-Library/src/config.js
 
       - name: Start BackEnd
         run: npm run start:be &
@@ -46,3 +46,23 @@ jobs:
       - name: Execute tests for project-one
         run: npm test
         working-directory: ./03-Library
+
+  deploy-be:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_BE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
+
+  deploy-fe:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_FE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
