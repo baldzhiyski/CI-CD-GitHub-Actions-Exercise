@@ -3,8 +3,12 @@ name: Node.js CI
 on:
   push:
     branches: ["main"]
+    paths:
+      - "03-Library/**"
   pull_request:
     branches: ["main"]
+    paths:
+      - "03-Library/**"
 
 jobs:
   build:
