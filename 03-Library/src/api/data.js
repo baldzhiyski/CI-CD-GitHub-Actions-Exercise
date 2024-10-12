@@ -41,6 +41,7 @@ export async function getBookTotalLikes(bookId) {
   );
 }
 
+// Comment
 export async function likeBookApi(bookId) {
   return await api.post(host + `/data/likes`, { bookId });
 }
